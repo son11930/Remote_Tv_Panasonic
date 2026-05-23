@@ -29,26 +29,16 @@ object IrDecoder {
         val patterns = mutableListOf<IntArray>()
         when (command) {
             TvCommand.VOL_UP -> {
-                patterns.add(generatePattern(intArrayOf(0x40, 0x04, 0x01, 0x00, 0x04, 0x05), false)) // Standard LSB first
-                patterns.add(generatePattern(intArrayOf(0x40, 0x04, 0x01, 0x00, 0x04, 0x05), true))  // Standard MSB first
-                patterns.add(generatePattern(intArrayOf(0x40, 0x04, 0x01, 0x00, 0x08, 0x09), false)) // Alt LSB first
-                patterns.add(generatePattern(intArrayOf(0x40, 0x04, 0x01, 0x00, 0x08, 0x09), true))  // Alt MSB first
-                patterns.add(generatePattern(intArrayOf(0x40, 0x04, 0x01, 0x00, 0x81, 0x60), true))  // Pronto MSB first
-                patterns.add(generatePattern(intArrayOf(0x02, 0x20, 0x80, 0x00, 0x20, 0xa0), false)) // Bit reversed LSB first
+                patterns.add(generatePattern(intArrayOf(0x40, 0x04, 0x01, 0x00, 0x04, 0x05), true))
             }
             TvCommand.VOL_DOWN -> {
-                patterns.add(generatePattern(intArrayOf(0x40, 0x04, 0x01, 0x00, 0x04, 0x06), false))
-                patterns.add(generatePattern(intArrayOf(0x40, 0x04, 0x01, 0x00, 0x04, 0x06), true))
-                patterns.add(generatePattern(intArrayOf(0x40, 0x04, 0x01, 0x00, 0x08, 0x0A), false))
-                patterns.add(generatePattern(intArrayOf(0x40, 0x04, 0x01, 0x00, 0x08, 0x0A), true))
-                patterns.add(generatePattern(intArrayOf(0x40, 0x04, 0x01, 0x00, 0x82, 0x61), true)) 
-                patterns.add(generatePattern(intArrayOf(0x02, 0x20, 0x80, 0x00, 0x20, 0x60), false)) 
+                patterns.add(generatePattern(intArrayOf(0x40, 0x04, 0x01, 0x00, 0x84, 0x85), true))
             }
         }
         
         val blast = mutableListOf<Int>()
         for (pattern in patterns) {
-            for (i in 0 until 2) { 
+            for (i in 0 until 3) { // ส่งซ้ำ 3 รอบตามมาตรฐาน Panasonic เพื่อความแม่นยำ
                 blast.addAll(pattern.toList())
                 blast.add(74767) 
             }
