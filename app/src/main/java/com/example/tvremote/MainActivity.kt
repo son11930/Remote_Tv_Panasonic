@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // คลื่นความถี่ของทีวี Panasonic
-        val freq = 38000 
+        val freq = 37000 
         
         val pattern = IrDecoder.getPattern(command)
         if (pattern.isEmpty()) return
