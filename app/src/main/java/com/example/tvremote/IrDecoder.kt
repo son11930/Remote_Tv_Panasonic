@@ -38,7 +38,7 @@ object IrDecoder {
         
         val blast = mutableListOf<Int>()
         for (pattern in patterns) {
-            for (i in 0 until 3) { // ส่งซ้ำ 3 รอบตามมาตรฐาน Panasonic เพื่อความแม่นยำ
+            for (i in 0 until 2) { // ลดเหลือ 2 รอบ (1st=Sync, 2nd=+1 Volume) ป้องกันปุ่มเบิ้ล
                 blast.addAll(pattern.toList())
                 blast.add(74767) 
             }
