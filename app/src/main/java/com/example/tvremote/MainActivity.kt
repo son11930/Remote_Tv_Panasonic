@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
             text = "เพิ่มเสียง (+)"
             textSize = 30f
             setPadding(0, 50, 0, 50)
-            setOnClickListener { sendIrCode("VOL_UP") }
+            setOnClickListener { sendIrCode(TvCommand.VOL_UP) }
         }
         layout.addView(btnVolUp, LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT, 
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
             text = "ลดเสียง (-)"
             textSize = 30f
             setPadding(0, 50, 0, 50)
-            setOnClickListener { sendIrCode("VOL_DOWN") }
+            setOnClickListener { sendIrCode(TvCommand.VOL_DOWN) }
         }
         layout.addView(btnVolDown, LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT, 
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(layout)
     }
 
-    private fun sendIrCode(command: String) {
+    private fun sendIrCode(command: TvCommand) {
         if (irManager?.hasIrEmitter() != true) {
             Toast.makeText(this, "เครื่องนี้ไม่มีตัวส่งสัญญาณ IR", Toast.LENGTH_SHORT).show()
             return
@@ -71,8 +71,8 @@ class MainActivity : AppCompatActivity() {
         // คลื่นความถี่ของทีวี Panasonic
         val freq = 38000 
         
-        val decoder = IrDecoder()
-        val pattern = decoder.getPattern(command)
+        val pattern = IrDecoder.getPattern(command)
+        if (pattern.isEmpty()) return
 
         try {
             irManager?.transmit(freq, pattern)
