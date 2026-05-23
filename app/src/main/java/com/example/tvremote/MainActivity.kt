@@ -68,8 +68,8 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        // คลื่นความถี่ของทีวี Panasonic
-        val freq = 37000 
+        // คลื่นความถี่ Panasonic Viera N2QAYB000818 = 36700 Hz (จาก LIRC database)
+        val freq = 36700
         
         val pattern = IrDecoder.getPattern(command)
         if (pattern.isEmpty()) return
