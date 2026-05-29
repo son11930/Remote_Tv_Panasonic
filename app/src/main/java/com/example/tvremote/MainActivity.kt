@@ -41,7 +41,11 @@ class MainActivity : AppCompatActivity() {
             text = "เพิ่มเสียง (+)"
             textSize = 30f
             setPadding(0, 50, 0, 50)
-            setOnClickListener { sendIrCode(TvCommand.VOL_UP) }
+            setOnClickListener { 
+                it.isEnabled = false
+                sendIrCode(TvCommand.VOL_UP) 
+                it.postDelayed({ it.isEnabled = true }, 500)
+            }
         }
         layout.addView(btnVolUp, LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT, 
@@ -52,7 +56,11 @@ class MainActivity : AppCompatActivity() {
             text = "ลดเสียง (-)"
             textSize = 30f
             setPadding(0, 50, 0, 50)
-            setOnClickListener { sendIrCode(TvCommand.VOL_DOWN) }
+            setOnClickListener { 
+                it.isEnabled = false
+                sendIrCode(TvCommand.VOL_DOWN) 
+                it.postDelayed({ it.isEnabled = true }, 500)
+            }
         }
         layout.addView(btnVolDown, LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT, 
